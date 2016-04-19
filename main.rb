@@ -6,6 +6,8 @@ require './models/mentor'
 require './models/meeting'
 require './db_config'
 require 'pg'
+require 'pony'
+
 
 
 enable :sessions
@@ -66,7 +68,27 @@ get '/lunches' do
 end
 
 post '/lunches' do
+
 Meeting.create(location: params[:restaurant],city: params[:city], lunchdate: params[:date], user_id: user_id)
+
+Pony.mail({
+:from => params[:name],
+   :to => 'amszental@gmail.com',
+   :subject => "A new booking has been added!",
+   :body => "#{params[:user_id]} has made a new booking in #{params[:city]}",
+   :via => :smtp,
+   :via_options => {
+    :address              => 'smtp.gmail.com',
+    :port                 => '587',
+    :enable_starttls_auto => true,
+    :user_name            => 'johnmann778@gmail.com',
+    :password             => 'password18*',
+    :authentication       => :plain,
+    :domain               => "localhost.localdomain"
+    }
+   })
+
+
 redirect to '/lunches'
 end
 
