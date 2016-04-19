@@ -1,0 +1,57 @@
+<h1> Your Bookings </h1>
+<table class="responsive">
+  <thead>
+    <tr>
+      <th>City</th>
+        <th>Date</th>
+
+        <th>Restaurant</th>
+        <th>User Name</th>
+        <th>Skill</th>
+      <th width=""></th>
+    </tr>
+  </thead>
+  <%  @lunch_display_booked.each do |x| %>
+  <tbody>
+    <tr>
+      <td><%=x.city%></td>
+      <td><%=x.lunchdate%></td>
+      <td><%=x.location %></td>
+      <td><%=@users.find(x.user_id).name %></td>
+      <td><%=@users.find(x.user_id).skills %></td>
+</td>
+    </tr>
+  </tbody>
+ <%end%>
+
+  </tbody>
+</table>
+
+<h1> Your Open Bookings </h1>
+<table class="responsive">
+  <thead>
+    <tr>
+      <th>City</th>
+        <th>Date</th>
+
+        <th>Restaurant</th>
+        <th>User Name</th>
+        <th>Skill</th>
+      <th width=""></th>
+    </tr>
+  </thead>
+  <%  @lunch_display_open.each do |x| %>
+  <tbody>
+    <tr>
+      <td><%=x.city%></td>
+      <td><%=x.lunchdate%></td>
+      <td><%=x.location %></td>
+      <td><%=@users.find(x.user_id).name %></td>
+      <td><%=@users.find(x.user_id).skills %></td>
+</td>
+    </tr>
+  </tbody>
+ <%end%>
+
+  </tbody>
+</table>

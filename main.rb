@@ -19,12 +19,18 @@ helpers do
 
   def logged_in?
     !!current_user
+  end
 
-    # if current_user
-    #   return true
-    # else
-    #   return false
-    # end
+  def user_id
+    current_user.id
+  end
+
+  def mentor?
+    current_user.role == "Mentor"
+  end
+
+  def user?
+    current_user.role == "User"
   end
 
 end
@@ -42,11 +48,11 @@ get '/sign-up' do
 end
 
 post '/users' do
-  if params[:user_type] == "user"
-    User.create(name: params[:user_name],email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills])
-  elsif params[:user_type] == "mentor"
-    Mentor.create(name: params[:user_name], email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills])
-  end
+  # if params[:user_type] == "user"
+    User.create(name: params[:user_name],email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills], role: params[:user_type])
+  # elsif  == "mentor"
+  #   Mentor.create(name: params[:user_name], email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills])
+  # end
   redirect to "/"
 end
 
@@ -57,17 +63,30 @@ get '/lunches' do
   erb :lunches
 end
 
-get '/user/:id' do
-  id = current_user.id.to_s
-  binding.pry
-  if current_user.id.to_i == id
-    @user = User.find(params[:id])
-    erb :user
-  else
-    "THIS IS THE WRONG USER"
-  end
+post '/lunches' do
+Meeting.create(location: params[:restaurant],city: params[:city], lunchdate: params[:date], user_id: user_id)
+redirect to '/lunches'
 end
 
+get '/users/:id' do
+  id = current_user.id.to_s
+  @users = User.all
+  if params[:id] == id
+    if user?
+      @lunch_display_open =  Meeting.where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_booked =  Meeting.where(user_id: params[:id]).where.not(mentor_id: nil)
+
+    elsif mentor?
+      @lunch_display_open =  Meeting.where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_booked =  Meeting.where(mentor_id: params[:id])
+    end
+  @user = User.find(params[:id])
+
+  erb :user
+else
+  "Get Back You Are Not Welcome Here!"
+end
+end
 
 
 get '/session/new' do
@@ -75,13 +94,11 @@ get '/session/new' do
 end
 
 post '/session' do
-  user = User.find_by(email: params[:email]) ||   user = Mentor.find_by(email: params[:email])
-
+  user = User.find_by(email: params[:email])
   if user && user.authenticate(params[:password])
     # we're in! create a new session
     session[:user_id] = user.id
     # redirect
-
     redirect to '/'
   else
     # stay at the login form
@@ -92,16 +109,23 @@ end
 delete '/session' do
   session[:user_id] = nil
   redirect to '/'
-
 end
 
 
 
 post '/book/:id' do
-  if logged_in? && current_user.class == Mentor
+  # See if user is a mentor and logged in, if so updates the mentor ID to the current user
+  if logged_in? && mentor?
     Meeting.update(params[:id], :mentor_id => current_user.id)
     redirect to '/'
+  elsif user?
+    "You are not a mentor"
   else
     redirect to '/sign-up'
   end
+end
+
+
+get '/lunches/new' do
+  erb :newlunch
 end
