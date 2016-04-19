@@ -1,0 +1,37 @@
+
+<table class="responsive">
+  <thead>
+    <tr>
+      <th>City</th>
+        <th>Date</th>
+
+        <th>Restaurant</th>
+        <th>User Name</th>
+        <th>Skill</th>
+      <th width=""></th>
+
+
+    </tr>
+  </thead>
+
+  <% @lunches.each do |x| %>
+  <tbody>
+    <tr>
+      <td><%=x.city%></td>
+      <td><%=x.lunchdate%></td>
+      <td><%=x.location %></td>
+      <td><%=@users.find(x.user_id).name %></td>
+      <td><%=@users.find(x.user_id).skills %></td>
+
+      <form action="/book/<%= x.id %>" method="post">
+        <input type="hidden" value="post" name="lunchid">
+      <td>  <button class="button">Book Lunch</button>
+      </form>
+</td>
+
+    </tr>
+  </tbody>
+ <%end%>
+
+  </tbody>
+</table>

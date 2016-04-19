@@ -5,22 +5,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lunch App</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/foundation.css">
-  <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/foundation.css">
+  <link rel="stylesheet" href="/css/app.css">
+  <link type="text/css" media="screen" rel="stylesheet" href="/css/responsive-tables.css" />
+
   <script src="js/vendor/modernizr.js"></script>
 </head>
 <body>
 
 <!-- main header -->
-  <ul class="vertical medium-horizontal menu">
-    <li><a href="/">Home</a></li>
-    <li><a href="/sign-up">Sign Up</a></li>
-    <li><a href="#">Item 3</a></li>
+
+
+<div class="top-bar">
+  <div class="top-bar-left">
+    <ul class="dropdown menu" data-dropdown-menu>
+      <li class="menu-text">Lunch Meetings</li>
+      <li>
+        <a href="/">Home</a>
+      </li>
+      <li><a href="/lunches">Lunches</a></li>
+      <li><a href="/sign-up">Sign Up</a></li>
+    </ul>
+  </div>
+
+  <!-- Changes Login Button Based on Whether The User Is Logged In  -->
+  <div class="top-bar-right">
+    <ul class="menu">
+    <% if logged_in? %>
+    <li><form action="/session" method="post" class="dropdown menu">
+      <input type="hidden" value="delete" name="_method">
+      <button>logout</button>
+    </form></li>
+    <li>   <a href="/user/<%=current_user.id%>">Profile</a>
+ </li>
   </ul>
 
-  <%= yield %>
+    <% else %>
+      <a href="/session/new">login</a>
 
+    <% end %>
+  </div>
+
+</div>
+
+  <%= yield %>
+  <script type="text/javascript" src="./js/vendor/responsive-tables.js"></script>
   <script src="./js/vendor/jquery.js"></script>
   <script src="./js/foundation.js"></script>
 </body>

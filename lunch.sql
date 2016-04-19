@@ -34,6 +34,8 @@ SELECT * FROM dishes;
 
 INSERT INTO dishes (name, image_url) VALUES ('Chicken', 'http://images.wisegeek.com/cooked-chicken.jpg')
 
+Meeting.create(location: "Aangan Thai", city: "Melbourne", lunchdate: "2016-04-19", user_id: 1, mentor_id: 2)
+User.create(name: "Akiva Test", city: "Sydney", password: "test", skills: "PPC", email: "test@gmail.com")
 
 CREATE TABLE comments (
   id SERIAL4 PRIMARY KEY,
