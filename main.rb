@@ -40,6 +40,8 @@ after do
 end
 
 get '/' do
+  @lunches = Meeting.where(mentor_id: nil)
+  @users = User.all
   erb :index
 end
 

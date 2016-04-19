@@ -1,6 +1,35 @@
+\
+
 #addBtn {
 
 float: right;
 margin-right: 5%;
 margin-top: 2%;
+}
+
+#signBtn {
+  float: left;
+  margin-right: 2px;
+}
+
+#intro {
+    width: 100%;
+    min-height: 200x;
+    padding: 40px;
+    background: url(/img/intro.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+}
+
+#sign-in{
+  color: white;
+}
+
+#lunches {
+  padding: 40px;
+  width: 100%;
+
 }

@@ -1,0 +1,83 @@
+<div id="intro">
+    <div class="row">
+        <div class="large-6 medium-6 columns">
+            <h3 class="color-white">Connecting Entrepreneurs and Mentors Over Lunch </h3>
+            <h6 class="color-white" style="line-height: 27px;"> Sponsor a lunch and get advice from top Mentors in Australia
+            </h6>
+        </div>
+        <div class="large-6 medium-6 columns">
+            <!-- <div id="sign-in">
+                <h3 class="color-pink">Sign In</h3>
+                <hr />
+                <label>Username</label>
+                <input id="Text1" type="text" />
+                <label>Password</label>
+                <input id="Text2" type="text" />
+                <button class="blue-btn">Sign Up</button>
+            </div> -->
+            <div id="sign-in">
+            <form action="/session" method="post">
+                  <label>email
+                    <input type="text" name="email">
+                  </label>
+                  <label>password
+                    <input type="password" name="password"
+                  </label>
+              <button class="button" id="signBtn">login</button>
+            </form>
+
+            <form action="/sign-up">
+              <button class="button" id="signBtn">register</button>
+            </form>
+
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+<div id="lunches">
+<div class="row">
+<div class="large-12">
+  <table>
+    <thead>
+      <tr>
+        <th>City</th>
+          <th>Date</th>
+          <th>Restaurant</th>
+          <th>User Name</th>
+          <th>Skill</th>
+        <th width=""></th>
+      </tr>
+    </thead>
+    <% @lunches.each do |x| %>
+    <tbody>
+      <tr>
+        <td><%=x.city%></td>
+        <td><%=x.lunchdate%></td>
+        <td><%=x.location %></td>
+        <td><%=@users.find(x.user_id).name %></td>
+        <td><%=@users.find(x.user_id).skills %></td>
+        <form action="/book/<%= x.id %>" method="post">
+          <input type="hidden" value="post" name="lunchid">
+        <td>  <button class="button">Book Lunch</button>
+        </form>
+  </td>
+
+      </tr>
+    </tbody>
+   <%end%>
+
+    </tbody>
+  </table>
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
