@@ -25,7 +25,7 @@
 
 
   <div class="tabs-panel" id="panel2">
-    
+
 <!--Booking Info start here  -->
     <a href="/lunches/new" class="button" id="AddUsr"> Add A Lunch </a>
 
@@ -42,6 +42,7 @@
           <th width=""></th>
         </tr>
       </thead>
+      <% if @lunch_display_booked %>
       <%  @lunch_display_booked.each do |x| %>
       <tbody>
         <tr>
@@ -53,7 +54,8 @@
     </td>
         </tr>
       </tbody>
-     <%end%>
+<%end%>
+<%end%>
 
       </tbody>
     </table>
@@ -71,6 +73,8 @@
           <th width=""></th>
         </tr>
       </thead>
+      <% if @lunch_display_booked %>
+
       <%  @lunch_display_open.each do |x| %>
       <tbody>
         <tr>
@@ -83,6 +87,8 @@
         </tr>
       </tbody>
      <%end%>
+     <%end%>
+
       </tbody>
     </table>
 
@@ -103,6 +109,8 @@
           <th width=""></th>
         </tr>
       </thead>
+      <% if @lunch_display_booked %>
+
       <%  @lunch_display_past.each do |x| %>
       <tbody>
         <tr>
@@ -115,6 +123,8 @@
         </tr>
       </tbody>
      <%end%>
+     <%end%>
+
 
       </tbody>
     </table>

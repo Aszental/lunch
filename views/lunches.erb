@@ -2,6 +2,12 @@
 <div id="lunches">
 <table class="responsive" >
   <thead>
+    <form action="/lunches?date=<%=params[:date]%>">
+      <label>Search By Date
+        <input type="date" name='date'>
+      </label>
+      <button class="button">Search</button>
+    </form>
     <tr>
       <th>City</th>
         <th>Date</th>

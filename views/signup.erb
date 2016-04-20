@@ -3,6 +3,8 @@
   <div class="row">
     <div class="medium-12 columns">
       <h2> Sign Up </h2>
+
+
       <% if flash[:error] %>
        <p class=""><%= flash[:error] %></p>
       <% end %>
@@ -36,6 +38,15 @@
             <option value="App Development">App Development</option>
           </select>
         </label>
+
+
+        <div class="row">
+           <div class="large-12 columns">
+             <label>A Little Bit About Yourself
+               <textarea name="description"></textarea>
+             </label>
+           </div>
+         </div>
 
         <label>Select Your User Type
           <select name="user_type">

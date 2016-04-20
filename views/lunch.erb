@@ -12,7 +12,7 @@
   </div>
   <div class="media-object-section">
     <h4>A Little Bit About <%= @users.find(@lunch.user_id).name  %></h4>
-    <p>@users.find(@lunch.user_id).desc</p>
+    <p><%= @users.find(@lunch.user_id).description %></p>
     <form action="/book/<%= params[:id] %>" method="post">
       <input type="hidden" value="post" name="lunchid">
     <td>  <button class="button">Book Lunch</button>
