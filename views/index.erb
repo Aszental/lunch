@@ -18,7 +18,7 @@
             <% if flash[:error] %>
              <p class="flash-error"><%= flash[:error] %></p>
             <% end %>
-
+<% if !logged_in? %>
             <div id="sign-in">
                       <form action="/session" method="post">
                             <label id="white">email
@@ -29,13 +29,13 @@
                             </label>
                         <button class="button" id="signBtn">login</button>
                       </form>
-
             <!-- <form action="/sign-up">
               <button class="button" id="signBtn">register</button>
             </form> -->
 
           </div>
           <a href="/sign-up"><button class="button">Register</button></a>
+          <% end %>
 
         </div>
 
@@ -109,10 +109,7 @@
         <td><%=x.location %></td>
         <td><%=@users.find(x.user_id).name %></td>
         <td><%=@users.find(x.user_id).skills %></td>
-        <form action="/book/<%= x.id %>" method="post">
-          <input type="hidden" value="post" name="lunchid">
-        <td>  <button class="button">Book Lunch</button>
-        </form>
+        <td><a href="/lunches/<%=x.id%>"class="button">View Details</a></td>
   </td>
 
       </tr>

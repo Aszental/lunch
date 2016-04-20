@@ -5,18 +5,28 @@
 
 <div id="lunchView">
 <div class="media-object" >
+
   <div class="media-object-section">
-    <div class="thumbnail">
-      <img src= "assets/img/media-object/avatar-1.jpg">
-    </div>
+    <h2>Have lunch with <%= @users.find(@lunch.user_id).name  %></h2>
+    <p><%= @users.find(@lunch.user_id).description %></p>
+  </div>
+</div>
+
+<div class="media-object" >
+  <div class="media-object-section">
   </div>
   <div class="media-object-section">
-    <h4>A Little Bit About <%= @users.find(@lunch.user_id).name  %></h4>
-    <p><%= @users.find(@lunch.user_id).description %></p>
+  <h2> Where You're lunching </h2>
+  <ul>
+    <li>Resaurant Name: <%= @lunch.location %> </li>
+    <li>City: <%= @lunch.city %> </li>
+    <li>Date: <%= @lunch.lunchdate %> </li>
+  </ul>
     <form action="/book/<%= params[:id] %>" method="post">
       <input type="hidden" value="post" name="lunchid">
     <td>  <button class="button">Book Lunch</button>
     </form>
   </div>
 </div>
+
 </div>

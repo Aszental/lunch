@@ -137,13 +137,12 @@ get '/users/:id' do
   @users = User.all
   if params[:id] == id
     if user?
-      @lunch_display_open =  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_open =  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil).where.not('lunchdate < ?', DateTime.now)
       @lunch_display_booked =  Meeting.order(:lunchdate).where(user_id: params[:id]).where.not(mentor_id: nil)
       @lunch_display_past = Meeting.order(:lunchdate).where(user_id: params[:id]).where('lunchdate < ?', DateTime.now)
     elsif mentor?
-      @lunch_display_open =  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_open =  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil).where.not('lunchdate < ?', DateTime.now)
       @lunch_display_booked =  Meeting.order(:lunchdate).where(mentor_id: params[:id])
-
       @lunch_display_past = Meeting.order(:lunchdate).where(mentor_id: params[:id]).where('lunchdate < ?', DateTime.now)
     end
   @user = User.find(params[:id])
@@ -165,13 +164,6 @@ patch '/users/:id' do
   edit_user.save
   redirect to "/users/#{params[:id]}"
 end
-
-
-
-
-
-
-
 
 
 get '/session/new' do
