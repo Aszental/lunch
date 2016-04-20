@@ -87,10 +87,19 @@ end
 
 get '/lunches' do
   # @lunches = Meeting.all
-  if params[:date]
+  if params[:date] && params[:city] == ""
     @lunches = Meeting.where(mentor_id: nil).where('lunchdate = ?', params[:date])
     @users = User.all
     erb :lunches
+  elsif params[:city] && params[:date] == ""
+    @lunches = Meeting.where(mentor_id: nil).where(city: params[:city])
+    @users = User.all
+    erb :lunches
+  elsif params[:city] && params[:date]
+    @lunches = Meeting.where(mentor_id: nil).where(city: params[:city]).where('lunchdate = ?', params[:date])
+    @users = User.all
+    erb :lunches
+
   else
     @lunches = Meeting.where(mentor_id: nil)
     @users = User.all

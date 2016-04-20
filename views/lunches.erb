@@ -1,13 +1,41 @@
 
+<form action="/lunches?date=<%=params[:date]%>?skill=<%=params[:skills]%>" id="search">
+  <div class="row">
+    <div class="medium-5 columns">
+
+        <label>Search By Date
+          <input type="date" name='date'>
+        </label>
+      </div>
+          <div class="medium-5 columns">
+
+  <label>Search Your City
+    <select name="city">
+      <option value=""></option>
+      <option value="Melbourne">Melbourne</option>
+      <option value="Melbourne">Melbourne</option>
+      <option value="Sydney">Sydney</option>
+      <option value="Perth">Perth</option>
+      <option value="Brisbane">Brisbane</option>
+      <option value="Adelaide">Adelaide</option>
+      <option value="Gold Coast">Gold Coast</option>
+    </select>
+  </label>
+</div>
+<div class="medium-2 columns">
+
+<button class="button" id="searchbtn">Search</button>
+</div>
+
+</div>
+
+</form>
+
+
 <div id="lunches">
 <table class="responsive" >
   <thead>
-    <form action="/lunches?date=<%=params[:date]%>">
-      <label>Search By Date
-        <input type="date" name='date'>
-      </label>
-      <button class="button">Search</button>
-    </form>
+
     <tr>
       <th>City</th>
         <th>Date</th>

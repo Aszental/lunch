@@ -4,7 +4,7 @@
 
 float: right;
 margin-right: 5%;
-margin-top: 2%;
+margin-top: 3%;
 }
 
 
@@ -12,6 +12,7 @@ margin-top: 2%;
 #signBtn {
   float: left;
   margin-right: 2px;
+  margin-bottom: 0px;
 }
 
 
@@ -36,6 +37,7 @@ margin-top: 2%;
 
 #lunches {
   padding: 40px;
+  padding-top: 5px;
   width: 100%;
 
 }
@@ -52,6 +54,9 @@ margin-top: 2%;
   padding: 40px;
 }
 
-#user-tabs{
-  padding: 40px;
+#searchbtn {
+  margin-top: 23px;
+}
+#search {
+  padding-left: 22px;
 }
