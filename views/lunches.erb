@@ -20,10 +20,8 @@
       <td><%=x.location %></td>
       <td><%=@users.find(x.user_id).name %></td>
       <td><%=@users.find(x.user_id).skills %></td>
-      <form action="/book/<%= x.id %>" method="post">
-        <input type="hidden" value="post" name="lunchid">
-      <td>  <button class="button">Book Lunch</button>
-      </form>
+      <td><a href="/lunches/<%=x.id%>"class="button">View Details</a></td>
+
 </td>
 
     </tr>

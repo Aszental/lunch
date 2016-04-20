@@ -7,12 +7,13 @@ require './models/meeting'
 require './db_config'
 require 'pg'
 require 'pony'
-
+require 'gravatarify'
 
 
 enable :sessions
 
 helpers do
+
 
   def current_user
     User.find_by(id: session[:user_id]) || Mentor.find_by(id: session[:user_id])
@@ -36,6 +37,7 @@ helpers do
   end
 
 end
+
 
 after do
   ActiveRecord::Base.connection.close
@@ -97,12 +99,14 @@ get '/users/:id' do
   @users = User.all
   if params[:id] == id
     if user?
-      @lunch_display_open =  Meeting.where(user_id: params[:id], mentor_id: nil)
-      @lunch_display_booked =  Meeting.where(user_id: params[:id]).where.not(mentor_id: nil)
 
+      @lunch_display_open=  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_booked =  Meeting.order(:lunchdate).where(user_id: params[:id]).where.not(mentor_id: nil)
+      @lunch_display_past = Meeting.order(:lunchdate).where(user_id: params[:id]).where('lunchdate < ?', DateTime.now)
     elsif mentor?
-      @lunch_display_open =  Meeting.where(user_id: params[:id], mentor_id: nil)
-      @lunch_display_booked =  Meeting.where(mentor_id: params[:id])
+      @lunch_display_open =  Meeting.order(:lunchdate).where(user_id: params[:id], mentor_id: nil)
+      @lunch_display_booked =  Meeting.order(:lunchdate).where(mentor_id: params[:id])
+      @lunch_display_past = Meeting.order(:lunchdate).where(mentor_id: params[:id]).where('lunchdate < ?', DateTime.now)
     end
   @user = User.find(params[:id])
 
@@ -111,6 +115,25 @@ else
   "Get Back You Are Not Welcome Here!"
 end
 end
+
+
+patch '/users/:id' do
+
+  # sql = "UPDATE dishes SET name ='#{params[:name]}', image_url ='#{params[:image_url]}' WHERE id = #{params[:id]}"
+  # run_sql(sql)
+  edit_user = User.find(params[:id])
+  edit_user.name = params[:name]
+  edit_user.description = params[:desc]
+  edit_user.save
+  redirect to "/users/#{params[:id]}"
+end
+
+
+
+
+
+
+
 
 
 get '/session/new' do
@@ -141,8 +164,8 @@ post '/book/:id' do
   # See if user is a mentor and logged in, if so updates the mentor ID to the current user
   if logged_in? && mentor?
     Meeting.update(params[:id], :mentor_id => current_user.id)
-    redirect to '/'
-  elsif user?
+    redirect to '/success'
+  elsif logged_in? && user?
     "You are not a mentor"
   else
     redirect to '/sign-up'
@@ -152,4 +175,18 @@ end
 
 get '/lunches/new' do
   erb :newlunch
+end
+
+get '/lunches/:id' do
+  @users = User.all
+  @lunch = Meeting.find(params[:id])
+  if @lunch.mentor_id == nil
+    erb :lunch
+  else
+    "This lunch is no longer available to be booked"
+  end
+end
+
+get '/success' do
+  "Your Booking is Successful!"
 end

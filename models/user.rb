@@ -1,5 +1,6 @@
 require 'active_record'
 require 'pry'
+require 'gravtastic'
 
 class User < ActiveRecord::Base
   has_many :mentors, through: :meetings
