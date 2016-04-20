@@ -14,6 +14,11 @@
                 <input id="Text2" type="text" />
                 <button class="blue-btn">Sign Up</button>
             </div> -->
+
+            <% if flash[:error] %>
+             <p class="flash-error"><%= flash[:error] %></p>
+            <% end %>
+
             <div id="sign-in">
                       <form action="/session" method="post">
                             <label id="white">email
@@ -33,8 +38,13 @@
           <a href="/sign-up"><button class="button">Register</button></a>
 
         </div>
+
       </div>
+
+
     </div>
+
+
 
 
     <div id="why">

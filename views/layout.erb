@@ -33,14 +33,15 @@
   <div class="top-bar-right">
     <ul class="menu">
     <% if logged_in? %>
-    <li> <strong>Name: </strong> <%= current_user.name %> </li>
-    <li> <strong>Role: </strong> <%= current_user.role %> </li>
     <li><form action="/session" method="post" class="dropdown menu">
       <input type="hidden" value="delete" name="_method">
       <button>logout</button>
     </form></li>
     <li>   <a href="/users/<%=current_user.id%>">Profile</a>
  </li>
+ <li> Name: <%= current_user.name %> </li>
+ <li> Role:  <%= current_user.role %> </li>
+
   </ul>
 
     <% else %>

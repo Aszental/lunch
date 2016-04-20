@@ -7,7 +7,7 @@ require './models/meeting'
 require './db_config'
 require 'pg'
 require 'pony'
-require 'gravatarify'
+require 'sinatra/flash'
 
 
 enable :sessions
@@ -55,11 +55,34 @@ end
 
 post '/users' do
   # if params[:user_type] == "user"
-    User.create(name: params[:user_name],email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills], role: params[:user_type])
+  @user = User.create(name: params[:user_name],email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills], role: params[:user_type])
+  if @user.valid?
   # elsif  == "mentor"
   #   Mentor.create(name: params[:user_name], email: params[:user_email], password: params[:password_digest], city: params[:city], skills: params[:skills])
   # end
-  redirect to "/"
+  Pony.mail({
+  :from => params[:name],
+     :to => params[:user_email],
+     :subject => "Thank you for Registering!",
+     :body => "Thanks for Registering, you can view your profile by visiting here http://localhost:4567/users/#{User.last.id}",
+     :via => :smtp,
+     :via_options => {
+      :address              => 'smtp.gmail.com',
+      :port                 => '587',
+      :enable_starttls_auto => true,
+      :user_name            => 'johnmann778@gmail.com',
+      :password             => 'password18*',
+      :authentication       => :plain,
+      :domain               => "localhost.localdomain"
+      }
+     })
+     redirect to "/"
+
+  else
+    flash[:error] = "Your Email Already Exists!"
+    redirect to "/sign-up"
+
+end
 end
 
 get '/lunches' do
@@ -71,7 +94,7 @@ end
 
 post '/lunches' do
 
-Meeting.create(location: params[:restaurant],city: params[:city], lunchdate: params[:date], user_id: user_id)
+Meeting.create(location: params[:restaurant],city: params[:city], lunchdate: params[:date], user_id: user_id, description: params[:description])
 
 Pony.mail({
 :from => params[:name],
@@ -149,7 +172,9 @@ post '/session' do
     redirect to '/'
   else
     # stay at the login form
-    erb :login
+    flash[:error] = "Your login Details are incorrect"
+    redirect to '/'
+
   end
 end
 
