@@ -9,7 +9,6 @@ require './db_config'
 require 'pg'
 require 'pony'
 require 'sinatra/flash'
-require 'pry'
 
 enable :sessions
 
