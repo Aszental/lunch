@@ -33,6 +33,9 @@
   <div class="top-bar-right">
     <ul class="menu">
     <% if logged_in? %>
+    <div class="badge" id="messageCount"> <%= unread_message %> </div>
+
+
     <li><form action="/session" method="post" class="dropdown menu">
       <input type="hidden" value="delete" name="_method">
       <button>logout</button>

@@ -9,7 +9,7 @@ require './db_config'
 require 'pg'
 require 'pony'
 require 'sinatra/flash'
-
+require 'pry'
 
 enable :sessions
 
@@ -37,6 +37,9 @@ helpers do
     current_user.role == "user"
   end
 
+  def unread_message
+    Message.where(receiverid: current_user.id.to_s).where(readstatus: FALSE).count
+  end
 end
 
 
@@ -166,6 +169,16 @@ patch '/users/:id' do
   redirect to "/users/#{params[:id]}"
 end
 
+# put '/message/read' do
+#   @messages = Message.all
+#   @messages.each do |x|
+#     if current_user.id == x.receiverid.to_i
+#       x.readstatus = TRUE
+#       x.save
+#     end
+#   end
+#   redirect back
+# end
 
 get '/session/new' do
   erb :login
@@ -232,6 +245,12 @@ end
 get '/lunch/:id/messages' do
   @messages = Message.where(meetingid: params[:id])
   @users = User.all
+  @messages.each do |x|
+    if current_user.id == x.receiverid.to_i
+      x.readstatus = TRUE
+      x.save
+    end
+  end
   erb :messages
 end
 
@@ -245,7 +264,7 @@ post '/lunch/:id/messages' do
       @receiverid = @meetings.find(params[:id]).mentor_id
     end
 
-  Message.create(body: params[:body], senderid: send_id, receiverid: @receiverid, meetingid: params[:id], timestamp: Time.now)
+    Message.create(body: params[:body], senderid: send_id, receiverid: @receiverid, meetingid: params[:id], timestamp: Time.now, readstatus: FALSE)
 
-redirect back
+    redirect back
   end

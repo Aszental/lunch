@@ -35,7 +35,8 @@ id SERIAL4 PRIMARY KEY,
 body VARCHAR(50),
 senderid VARCHAR(100),
 receiverid varchar(100),
-meetingid VARCHAR(100)
+meetingid VARCHAR(100),
+readstatus boolean
 );
 
 ALTER TABLE users
