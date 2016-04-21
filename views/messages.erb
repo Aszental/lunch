@@ -1,0 +1,23 @@
+<div id="messages">
+
+<% if @messages %>
+
+<% @messages.each do |x| %>
+<p>  <%= x.body %> sent by:  <%= @users.find(x.senderid).name %> on <%= x.timestamp %>        </p>
+
+<% end %>
+<% else %>
+<p> There are no messages </p>
+
+<% end %>
+
+
+<form action="/lunch/<%= params[:id]%>/messages" method="post">
+  <input type="hidden" value="post" name="lunchid">
+<td>
+  <label for="body">  Post Your Message <input type="text" name="body">
+</label>
+  <button class="button">Post Your Message</button>
+</form>
+
+</div>

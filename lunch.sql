@@ -45,3 +45,12 @@ CREATE TABLE comments (
   body VARCHAR(50) NOT NULL,
   dish_id INTEGER
 );
+
+CREATE TABLE messages
+(
+id SERIAL4 PRIMARY KEY,
+body VARCHAR(50),
+senderid VARCHAR(100),
+receiverid varchar(100),
+meetingid VARCHAR(100)
+);

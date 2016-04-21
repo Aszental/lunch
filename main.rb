@@ -4,6 +4,7 @@ require 'sinatra/reloader'
 require './models/user'
 require './models/mentor'
 require './models/meeting'
+require './models/message'
 require './db_config'
 require 'pg'
 require 'pony'
@@ -227,3 +228,24 @@ end
 get '/success' do
   "Your Booking is Successful!"
 end
+
+get '/lunch/:id/messages' do
+  @messages = Message.where(meetingid: params[:id])
+  @users = User.all
+  erb :messages
+end
+
+post '/lunch/:id/messages' do
+    @users = User.all
+    @meetings = Meeting.all
+    send_id = current_user.id
+    if mentor?
+      @receiverid = @meetings.find(params[:id]).user_id
+    elsif user?
+      @receiverid = @meetings.find(params[:id]).mentor_id
+    end
+
+  Message.create(body: params[:body], senderid: send_id, receiverid: @receiverid, meetingid: params[:id], timestamp: Time.now)
+
+redirect back
+  end

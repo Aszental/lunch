@@ -51,7 +51,10 @@
           <td><%=x.location %></td>
           <td><%=@users.find(x.user_id).name %></td>
           <td><%=@users.find(x.user_id).skills %></td>
-    </td>
+          <td> <a href="/lunch/<%=x.id%>/messages" class="button"> Messages</a>
+
+         </td>
+
         </tr>
       </tbody>
 <%end%>
@@ -83,7 +86,7 @@
           <td><%=x.location %></td>
           <td><%=@users.find(x.user_id).name %></td>
           <td><%=@users.find(x.user_id).skills %></td>
-    </td>
+
         </tr>
       </tbody>
      <%end%>

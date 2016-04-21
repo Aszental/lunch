@@ -9,6 +9,12 @@ margin-top: 3%;
 
 
 
+#messages {
+  width: 100%;
+  min-height: 200x;
+  padding: 40px;
+
+}
 #signBtn {
   float: left;
   margin-right: 2px;
