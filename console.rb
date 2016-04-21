@@ -1,4 +1,3 @@
-require 'pry'
 require 'active_record'
 
 
@@ -8,6 +7,3 @@ require './db_config'
 require './models/user'
 require './models/mentor'
 require './models/meeting'
-
-
-binding.pry
