@@ -6,7 +6,9 @@ CREATE TABLE users (
   id SERIAL4 PRIMARY KEY,
   name VARCHAR(50),
   city VARCHAR(50),
-  email VARCHAR(100)
+  email VARCHAR(100),
+  description VARCHAR(1000),
+  role VARCHAR(50)
 );
 
 CREATE TABLE mentors (
@@ -24,6 +26,15 @@ CREATE TABLE meetings (
   lunchDate DATE,
   user_id INTEGER,
   mentor_id INTEGER
+);
+
+CREATE TABLE messages
+(
+id SERIAL4 PRIMARY KEY,
+body VARCHAR(50),
+senderid VARCHAR(100),
+receiverid varchar(100),
+meetingid VARCHAR(100)
 );
 
 ALTER TABLE users
@@ -44,13 +55,4 @@ CREATE TABLE comments (
   id SERIAL4 PRIMARY KEY,
   body VARCHAR(50) NOT NULL,
   dish_id INTEGER
-);
-
-CREATE TABLE messages
-(
-id SERIAL4 PRIMARY KEY,
-body VARCHAR(50),
-senderid VARCHAR(100),
-receiverid varchar(100),
-meetingid VARCHAR(100)
 );
