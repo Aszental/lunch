@@ -1,6 +1,6 @@
 
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require './models/user'
 require './models/mentor'
 require './models/meeting'
