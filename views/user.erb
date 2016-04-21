@@ -29,7 +29,7 @@
 <!--Booking Info start here  -->
     <a href="/lunches/new" class="button" id="AddUsr"> Add A Lunch </a>
 
-    <h1> Upcoming Bookings </h1>
+    <h3> Upcoming Bookings </h3>
     <table class="responsive">
       <thead>
         <tr>
@@ -51,7 +51,8 @@
           <td><%=x.location %></td>
           <td><%=@users.find(x.user_id).name %></td>
           <td><%=@users.find(x.user_id).skills %></td>
-          <td> <a href="/lunch/<%=x.id%>/messages" class="button"> Messages</a>
+          <td> <a href="/lunch/<%=x.id%>/messages" class="button"> Messages </a> <div class="badge" id="messageCount"> <%= Message.where(receiverid: current_user.id.to_s).where(meetingid: x.id).where(readstatus: FALSE).count %> </div> 
+
 
          </td>
 
@@ -63,7 +64,7 @@
       </tbody>
     </table>
 
-    <h1> Open Bookings </h1>
+    <h3> Open Bookings </h3>
     <table class="responsive">
       <thead>
         <tr>
@@ -71,12 +72,12 @@
             <th>Date</th>
 
             <th>Restaurant</th>
-            <th>User Name</th>
+            <th>Lunching With</th>
             <th>Skill</th>
           <th width=""></th>
         </tr>
       </thead>
-      <% if @lunch_display_booked %>
+      <% if @lunch_display_open %>
 
       <%  @lunch_display_open.each do |x| %>
       <tbody>
@@ -99,7 +100,7 @@
 <!-- Past Bookings -->
 
 
-    <h1> Past Bookings </h1>
+    <h3> Past Bookings </h3>
     <table class="responsive">
       <thead>
         <tr>
@@ -112,7 +113,7 @@
           <th width=""></th>
         </tr>
       </thead>
-      <% if @lunch_display_booked %>
+      <% if @lunch_display_past %>
 
       <%  @lunch_display_past.each do |x| %>
       <tbody>

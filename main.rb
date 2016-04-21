@@ -9,7 +9,7 @@ require './db_config'
 require 'pg'
 require 'pony'
 require 'sinatra/flash'
-
+require 'pry'
 enable :sessions
 
 helpers do
@@ -250,6 +250,7 @@ get '/lunch/:id/messages' do
       x.save
     end
   end
+
   erb :messages
 end
 
@@ -262,8 +263,6 @@ post '/lunch/:id/messages' do
     elsif user?
       @receiverid = @meetings.find(params[:id]).mentor_id
     end
-
     Message.create(body: params[:body], senderid: send_id, receiverid: @receiverid, meetingid: params[:id], timestamp: Time.now, readstatus: FALSE)
-
     redirect back
   end

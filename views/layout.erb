@@ -33,18 +33,19 @@
   <div class="top-bar-right">
     <ul class="menu">
     <% if logged_in? %>
-    <div class="badge" id="messageCount"> <%= unread_message %> </div>
 
 
-    <li><form action="/session" method="post" class="dropdown menu">
+    <li>
+
+      <form action="/session" method="post" class="dropdown menu">
       <input type="hidden" value="delete" name="_method">
       <button>logout</button>
-    </form></li>
-    <li>   <a href="/users/<%=current_user.id%>">Profile</a>
- </li>
- <li> Name: <%= current_user.name %> </li>
- <li> Role:  <%= current_user.role %> </li>
+    </form>
 
+  </li>
+
+    <li> <a href="/users/<%=current_user.id%>">Profile</a> </li>
+    <li> <div class="badge" id="messageCount"> <%= unread_message %> </div> </li>
   </ul>
 
     <% else %>

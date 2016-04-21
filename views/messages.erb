@@ -3,7 +3,7 @@
 <% if @messages %>
 
 <% @messages.each do |x| %>
-<p>  <%= x.body %> sent by:  <%= @users.find(x.senderid).name %> on <%= x.timestamp %>        </p>
+<p>  <%= x.body %> sent by:  <%= @users.find(x.senderid.to_i).name %> on <%= x.timestamp %>        </p>
 
 <% end %>
 <% else %>
