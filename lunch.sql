@@ -8,6 +8,7 @@ CREATE TABLE users (
   city VARCHAR(50),
   email VARCHAR(100),
   description VARCHAR(1000),
+  passsword_digest varchar(1000),
   role VARCHAR(50)
 );
 
@@ -54,5 +55,9 @@ User.create(name: "Test 2", city: "Melbourne", password: "test", skills: "PPC", 
 CREATE TABLE comments (
   id SERIAL4 PRIMARY KEY,
   body VARCHAR(50) NOT NULL,
-  dish_id INTEGER
+  senderid varchar(50),
+  receiverid varchar(50),
+  meetingid varchar(50),
+  timestamp TIMESTAMP
+
 );
